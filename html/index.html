@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css"> 
+    <title>Consulta de Universidades licenciadas</title>
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <div class="mytitle">
+        <b>Búsqueda de universidades licenciadas</b>
+      </div>
+      <form class="content" action="cgi-bin/consult.pl" method="get" accept-charset="UTF-8">
+        <label for="kind">Elija opción e ingrese una frase:</label>
+        <div class="myinput">
+          <select name="kind" required>
+            <option value="name">Nombre</option>
+            <option value="management_type">Tipo de Gestión</option>
+            <option value="status">Estado de Licenciamiento</option>
+            <option value="period">Periodo de Licenciamiento</option>
+            <option value="department">Departamento</option>
+            <option value="province">Provincia</option>
+            <option value="district">Distrito</option>
+          </select>
+          <input type="text" name="keyword" required>
+        </div>
+        <input type="submit" value="Buscar">
+      </form>
+    </div>
+  </body>
+</html>

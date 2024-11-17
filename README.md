@@ -17,409 +17,233 @@
         <tr><td><span style="font-weight:bold;">Aprobación</span>:  2022/03/01</td><td><span style="font-weight:bold;">Código</span>: GUIA-PRLD-001</td><td><span style="font-weight:bold;">Página</span>: 1</td></tr>
     </tbody>
 </table>
-</div>
-
-<div align="center">
-<span style="font-weight:bold;">GUÍA DE LABORATORIO</span><br />
-</div>
-
-
 <table>
-<theader>
-<tr><th colspan="6">INFORMACIÓN BÁSICA</th></tr>
-</theader>
-<tbody>
-<tr><td>ASIGNATURA:</td><td colspan="5">Programación Web 2</td></tr>
-<tr><td>TÍTULO DE LA PRÁCTICA:</td><td colspan="5">Vim - Git - GitHub</td></tr>
-<tr>
-<td>NÚMERO DE PRÁCTICA:</td><td>01</td><td>AÑO LECTIVO:</td><td>2023 A</td><td>NRO. SEMESTRE:</td><td>III</td>
-</tr>
-<tr>
-<td>FECHA INICIO::</td><td>01-May-2023</td><td>FECHA FIN:</td><td>07-May-2023</td><td>DURACIÓN:</td><td>04 horas</td>
-</tr>
-<tr><td colspan="6">RECURSOS:
-    <ul>
-        <li><a href="https://git-scm.com/book/es/v2">https://git-scm.com/book/es/v2</a></li>
-        <li><a href="https://guides.github.com/">https://guides.github.com/</a></li>        
-        <li><a href="https://www.w3schools.com/java/default.asp">https://www.w3schools.com/java/default.asp</a></li>
-    </ul>
-</td>
-</<tr>
-<tr><td colspan="6">DOCENTES:
-<ul>
-<li>Richart Smith Escobedo Quispe - rescobedoq@unsa.edu.pe</li>
-</ul>
-</td>
-</<tr>
-</tdbody>
+    <thead>
+        <tr>
+            <th>Estudiante</th>
+            <th>Escuela</th>
+            <th>Asignatura</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Auccacusi Conde Brayan Carlos<br />bauccacusic@unsa.edu.pe</td>
+            <td>Ingeniería de Sistemas</td>
+            <td>Programación Web 1<br />Semestre: 2024 B<br />Código: 20211196</td>
+        </tr>
+        <tr>
+            <td>Palma Apaza Santiago Enrique<br />spalmaa@unsa.edu.pe</td>
+            <td>Ingeniería de Sistemas</td>
+            <td>Programación Web 1<br />Semestre: 2024 B<br />Código: 20240689</td>
+        </tr>
+        <tr>
+            <td>Pamo Condori Benjamin Andre<br />bpamoc@unsa.edu.pe</td>
+            <td>Ingeniería de Sistemas</td>
+            <td>Programación Web 1<br />Semestre: 2024 B<br />Código: 20233480</td>
+        </tr>
+        <tr>
+            <td>Huaynacho Mango Jerry Anderson<br />jhuaynacho@unsa.edu.pe</td>
+            <td>Ingeniería de Sistemas</td>
+            <td>Programación Web 1<br />Semestre: 2024 B<br />Código: 20142322</td>
+        </tr>
+    </tbody>
 </table>
 
-# Vim - Git - GitHub
+<table>
+    <thead>
+        <tr>
+            <th>Laboratorio</th>
+            <th>Tema</th>
+            <th>Duración</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>06</td>
+            <td>Git y GitHub</td>
+            <td>04 horas</td>
+        </tr>
+    </tbody>
+</table>
 
-[![License][license]][license-file]
-[![Downloads][downloads]][releases]
-[![Last Commit][last-commit]][releases]
-
-[![Debian][Debian]][debian-site]
-[![Git][Git]][git-site]
-[![GitHub][GitHub]][github-site]
-[![Vim][Vim]][vim-site]
-[![Java][Java]][java-site]
-
-#
-
-## OBJETIVOS TEMAS Y COMPETENCIAS
-
-### OBJETIVOS
-
-- Conocer el editor de texto Vim.
-- Aprender a manejar el sistema de control de versiones Git y utilizar GitHub para trabajar de manera colaborativa.
-
-### TEMAS
-- Editor Vim
-- Java
-- Git
-- GitHub
-
-<details>
-<summary>COMPETENCIAS</summary>
-
-- C.c Diseña responsablemente sistemas, componentes o procesos para satisfacer necesidades dentro de restricciones realistas: económicas, medio ambientales, sociales, políticas, éticas, de salud, de seguridad, manufacturación y sostenibilidad.
-- C.m Construye responsablemente soluciones siguiendo un proceso adecuado llevando a cabo las pruebas ajustada a los recursos disponibles del cliente.
-- C.p Aplica de forma flexible técnicas, métodos, principios, normas, estándares y herramientas de ingeniería necesarias para la construcción de software e implementación de sistemas de información.
-
-</details>
-
-## CONTENIDO DE LA GUÍA
-
-### MARCO CONCEPTUAL
-
-- Editor Vim
-    - Vim es un editor de texto muy eficiente para programar en consola que no tiene nada que envidiar a los editores gráficos.
-    
-- Instalar Vim en:
-
-    - GNU/Linux
-        - Para instalar Vim en cualquier distribución GNU/Linux use sus mismos repositorios
-        - ```sh
-          apt-get install vim
-          ```
-
-	- MS Windows
-        - Para descarga en sistemas MS Windows https://www.vim.org/download.php
-    
-	- MacOS
-        - Para instalar Vim en sistemas MacOS puede usar brew
-        -   ```sh
-            brew install macvim
-            ```
-
-#
-
-- Java
-    - Java es un lenguaje de programación orientado a objetos
-    - La documentación de Java 11 se encuentra en: https://docs.oracle.com/javase/specs/jls/se11/html/index.html
-    - Un curso muy interesante en videos se puede encontrar en: https://www.youtube.com/playlist?list=PLw8RQJQ8K1yQDqPyDRzt-h8YlBj96OwMP
-    
-    - Instalar Java
-
-        - GNU/Linux
-            - Para descarga en sistemas GNU/Linux puede usar OpenJDK
-            -   ```sh
-                apt-get install openjdk-11-jdk
-                ```
-            
-        - MS Windows
-            - Para descarga en sistemas MS Windows https://www.oracle.com/java/technologies/downloads/
-        
-        - MacOS
-            - Para descarga en sistemas MacOS https://www.oracle.com/java/technologies/downloads/
+<table>
+    <thead>
+        <tr>
+            <th>Semestre académico</th>
+            <th>Fecha de inicio</th>
+            <th>Fecha de entrega</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2024 B</td>
+            <td>12 de Noviembre</td>
+            <td>16 de Noviembre</td>
+        </tr>
+    </tbody>
+</table>
 
 
-#
+# Universidades_CGI
 
-- Git
-    - Git es un sistema de control de versiones creado por Linus Torvalds. Es eficiente, confiable. 
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![GitHub repo size](https://img.shields.io/github/repo-size/JerryAndersonh/Universidades_CGI)](https://github.com/JerryAndersonh/Universidades_CGI)
+[![Last Commit](https://img.shields.io/github/last-commit/JerryAndersonh/Universidades_CGI)](https://github.com/JerryAndersonh/Universidades_CGI)
 
-- Instalar Git
+[![Docker](https://img.shields.io/badge/Docker-Enabled-blue)](https://www.docker.com/)
+[![Git](https://img.shields.io/badge/Git-Enabled-orange)](https://git-scm.com/)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-lightgrey)](https://github.com/JerryAndersonh/Universidades_CGI)
+[![Perl](https://img.shields.io/badge/Perl-5.32-blue)](https://www.perl.org/)
+[![HTML](https://img.shields.io/badge/HTML-5-red)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 
-	- GNU/Linux
-        - Para descarga en sistemas GNU/Linux desde https://git-scm.com/download/linux
-        -   ```sh
-            apt-get install git
-            ```
-        
-	- MS Windows
-        - Para descarga en sistemas MS Windows https://git-scm.com/download/win
-    
-    - MacOS
-        - Para descarga en sistemas MacOS https://git-scm.com/download/mac
-        -   ```sh
-            brew install git
-            ```
-
-#
-       
-- git init
-    - Crea un nuevo proyecto local, se crean archivos en el directorio oculto .git
-    -   ```sh
-        git init
-        ```
-
-- git config
-    - Establece variables de configuración. Por ejemplo para los commits se necesita los datos del desarrollador. Se puede especificar el editor y hasta el tiempo que deseas almacenar tus credenciales en la cache y otras cosas más
-    -   ```sh
-        git config --global user.name "Richart Smith Escobedo Quispe"
-        git config --global user.email richarteq@gmail.com
-        git config --list
-        git config user.name
-        git config --global core.editor "code --wait"
-        git config --global credential.helper 'cache --timeout=3600'
-        ```
-
-- git status
-    - Permite verificar el estado de los archivos
-    -   ```sh
-        git status
-        ```
-- git add
-    - Añade archivos al staging area. El punto "." agrega todos
-    -   ```sh
-        git add HolaMundo.java
-        git add .
-        ```
-
-- git commit
-    - Sube los archivos al área de staging, en la máquina local. La opción -m permite escribir el mensaje en línea
-    -   ```sh
-        git commit -m "Probando el Hola Mundo"    
-        ```
-
-- git clone
-    - Clona un repositorio remoto como un repositorio local, en el cual se puede hacer push
-    -   ```sh
-        git clone <URL_GITHUB>
-        ```
-
-- git remote
-    - Persigue un repositorio remoto para hacer push.
-    -   ```sh
-        git remote add origin <URL_GITHUB>
-        ```
-
-- git push
-    - Permite subir archivos al repositorio remoto
-    -   ```sh
-        git push -u origin main    
-        ```
-
-- git show
-    - Muestra detalles del commit actual
-    -   ```sh
-        git show
-        ```
-
--   git log
-    - Permite ver un resumen de los commit realizados
-    -   ```sh
-        git log
-        git log --pretty=oneline
-        git log --graph --pretty=oneline --abbrev-commit --all
-        git log --pretty=format:"%h - %an, %ar : %s"
-        git log -p -2
-        ```
-    -   <pre>
-        6bb6b6e - Richart Escobedo Quispe, hace 3 minutos : Git - GitHub
-        6bb6b6e - Richart Escobedo Quispe, hace 12 minutos : Git - GitHub
-        b36a9fd - Richart Escobedo Quispe, hace 14 minutos : Git - GitHub
-        e86aac8 - Richart Escobedo Quispe, hace 22 minutos : Git - GitHub
-        e58f653 - Richart Escobedo Quispe, hace 31 minutos : first commit
-        5747062 - Richart Escobedo Quispe, hace 35 minutos : first commit
-        </pre>
-
-- git diff
-    - Permite comparar los cambios en los archivos
-    -   ```sh
-        git diff 6bb6b6e 6bb6b6e
-        ```
-
-- git branch
-    - Permite ver las ramas existentes o crea una rama alternativa al proyecto principal git branch -a
-    -   ```sh
-        git branch prueba1
-        git branch
-        ```
-    -   <pre>
-        * main
-        prueba1
-        </pre>
-
-- git checkout
-    - Permite regresar a versiones anteriores o saltar a otra rama
-    -   ```sh
-        git checkout prueba1
-        git branch
-        ```
-    -   <pre>
-        main
-        * prueba1
-        </pre>
+---
+</div>
 
 
-- git pull
-    - Permite descargar los cambios del repositorio remoto al directorio local
-    -   ```sh
-        git pull
-        ```
-    -   ```sh
-        git checkout nueva_rama
-        git pull <remote repo>
-        ```
-    -   ```sh
-        git checkout main
-        git pull --rebase origin
-        ```
+## OBJETIVO DEL INFORME
 
-#
+Presentar el desarrollo de una aplicación web que permite realizar consultas dinámicas sobre universidades licenciadas en Perú, utilizando scripts CGI escritos en **Perl**, **HTML**, **CSS** y expresiones regulares. La aplicación fue desplegada y ejecutada en un contenedor **Docker** y se usó **GitHub** para trabajar de manera colaborativa.
 
-## EJERCICIO RESUELTO POR EL DOCENTE
-Primer repositorio en GitHub
-- Creamos un nuevo proyecto en GitHub
-    - ![Nuevo Proyecto GitHub](github_proyecto_programacion.png)
+---
 
-- Crearemos un repositorio local usando git init
-    -   ```sh
-        pwd
-        /home/richart/gits/proyecto
-        git init
-        ```
+## IMPORTANCIA DEL PROYECTO
 
-- Crearemos un archivo Readme.md con contenido Markup
-    -   ```sh
-        echo "# Mi proyecto Git" > README.md
-        ```
+- Utilización de **Git** y **GitHub** para el control de versiones y colaboración en equipo.
+- Introducción al uso de contenedores para implementar y ejecutar aplicaciones web de manera eficiente.
+- Aplicación de expresiones regulares para el procesamiento automatizado de datos en un archivo CSV.
 
-- Agregaremos este archivo al staging area usando git add .
-    -   ```sh
-        git status
-        ```
-    -   <pre>
-        En la rama main
+---
 
-        No hay commits todavía
+## EQUIPOS, MATERIALES Y TEMAS UTILIZADOS
 
-        Archivos sin seguimiento:
-        (usa "git add <archivo>..." para incluirlo a lo que se será confirmado)
-        README.md
-        no hay nada agregado al commit pero hay archivos sin seguimiento presentes (usa "git add" para hacerles seguimiento)
-        </pre>
-    -   ```sh
-        git add README.md
-        ```
+### Equipos
 
-- Hacemos un primer commit en nuestro repositorio local 
-    -   ```sh
-        git commit -m "Mi primer proyecto en github"
-        ```
-- Asociamos el repositorio local con el repositorio remoto 
-    -   ```sh
-        git remote add origin <URL_GITHUB>
-        ```
+- Computadoras con capacidad para ejecutar Docker.
+- Conexión a Internet.
 
-- Actualizamos el repositorio remoto
-    -   ```sh
-        git push -u origin main
-        ```
+### Materiales
 
-- Ahora podemos verificar en GitHub que nuestro repositorio se actualizó con el proyecto local
-    - ![Readme.md](Readme.md.png)
+- **Archivos de datos proporcionados:**
+  - `Data_Universidades_LAB06.ods` (ODS)
+  - `Data_Universidades_LAB06.csv` (CSV)
+  - `Licenciamiento Institucional - Diccionario_1.pdf` (PDF)
+  - `Programas de Universidades - Diccionario.pdf` (PDF)
 
-- Cree una clase Java HolaMundo.java que imprima un saludo, compílelo, ignore archivos binarios, agregue archivo al stating area, haga commit y súbalo al repositorio GitHub.
-    -   ```sh
-        vim HolaMundo.java
-        ```
-    -   <pre>
-        public class HolaMundo
-        {
-            public static void main(String args[]) {
-            
-                /** */
-                System.out.println ("¡Hola mundo!");
+- **Software y herramientas:**
+  - **Docker:** Para crear la imagen y ejecutar el contenedor.
+  - **Git:** Control de versiones local.
+  - **GitHub:** Repositorio remoto.
+  - **Perl:** Para la lógica del servidor CGI.
+  - **HTML y CSS:** Para la interfaz del usuario.
+  - **Navegador web:** Para pruebas de la aplicación.
+  - **VIM 9.0.**
+  - **OpenJDK 64-Bits 17.0.7.**
 
-            }
-        }
-        </pre>
-    -   ```sh    
-        java -version
-        ```
-    -   <pre>
-        openjdk version "11.0.14" 2022-01-18
-        </pre>
-    -   ```sh
-        javac HolaMundo.java
-        java HolaMundo
-        ```
-    -   <pre>
-        ¡Hola mundo!
-        </pre>
-    -   ```sh
-        vim .gitignore
-        ```
-    -   <pre>
-        *.class
-        .gitignore
-        </pre>
-    -   ```sh
-        git add HolaMundo.java
-        git commit -m "Hola Mundo"
-        git remote <URL_GITHUB>
-        git push -u origin main
-        ```
+### Temas trabajados
 
-#
+- Uso de Git y GitHub.
+- Desarrollo y ejecución de contenedores con Docker.
+- Procesamiento de datos mediante expresiones regulares en Perl.
+- Desarrollo de interfaces web interactivas con CGI, HTML y CSS.
 
-## EJERCICIOS PROPUESTOS
-- Cree una cuenta de usuario en GitHub usando su correo institucional.
-- [opcional por ahora] Configure su cuenta de estudiante (https://education.github.com/pack).
-- Cree un nuevo proyecto personal y desarrolle el ejercicio resuelto en clase. Haga 3 commits como mínimo y muéstrelos. Commit para "¡Hola mundo!", otro para "Bienvenida al curso" y otro para imprimir su nombre.
-- Cree un proyecto grupal para resolver el siguiente problema: Se desea crear una clase Calculator en Java, que tenga las siguientes operaciones: add, sub, mul, div, mod; estas operaciones recibirán dos enteros y devolverán un entero. (Forme grupos de 3 a 5 personas). Cree ramas para cada integrante y cada cierto tiempo una las ramas al main. No elimine nada para evidenciar ramas, main y commits.
-- Debería haber minimo 7 commits:
-    - 1er commit - Creación de la plantilla "Calculator.java"
-    - 2do commit - Uniendo rama "ramma-add" al "main" para obtener metodo add().
-    - 3er commit - Uniendo rama "ramma-sub" al "main" para obtener metodo sub().
-    - 4to commit - Uniendo rama "ramma-mul" al "main" para obtener metodo mul().
-    - 5to commit - Uniendo rama "ramma-div" al "main" para obtener metodo div().
-    - 6to commit - Uniendo rama "ramma-mod" al "main" para obtener metodo mod().
+---
 
-#
+### URL DE REPOSITORIO GITHUB
 
-## CUESTIONARIO
-- ¿Por qué Git y GitHub son herramientas importantes para el curso?
-- ¿Qué conductas éticas deberían promocionarse cuando se usa un Sistema de Control de Versiones?
-- ¿Qué son los entándares de codificación?
+- URL del Repositorio GitHub para clonar o recuperar:
+  [https://github.com/JerryAndersonh/Universidades_CGI.git](https://github.com/JerryAndersonh/Universidades_CGI.git)
+---
 
-#
+## Actividades con el repositorio GitHub
 
-## REFERENCIAS
-- https://git-scm.com/book/es/v2
-- https://guides.github.com/
-- https://www.w3schools.com/java/default.asp
+### 4.1 Creando e inicializando repositorio GitHub
 
-- Nano vs. Emacs vs. Vim (Editor Wars!) - https://www.linuxtrainingacademy.com/nano-emacs-vim/
-- Emacs vs Vim - https://www.linuxteaching.com/article/emacs_vs_vim
-- Vim or Emacs? The Debate is over… - https://cmd.com/blog/vim-or-emacs-the-debate-is-over/
-- Por qué un editor de texto de hace 40 años machaca al "todopoderoso" Atom - https://www.xataka.com/aplicaciones/por-que-un-editor-de-texto-de-hace-40-anos-le-da-sopas-con-ondas-al-todopoderoso-atom
+Se creó el repositorio GitHub para gestionar el proyecto. Los siguientes comandos se realizaron en la computadora para crear el repositorio local y conectarlo al repositorio remoto:
 
-- Tutorial de Vim - http://www.truth.sk/vim/vimbook-OPL.pdf
-- Teclado en Vim - http://www.viemu.com/vi-vim-cheat-sheet.gif
-- Cómo Configurar VIM como VS Code - https://www.youtube.com/watch?v=XgQFzi3VkC8
+```bash
+$ mkdir -p $HOME/Universidades_CGI/
+$ cd $HOME/Universidades_CGI/
+$ mkdir -p $HOME/Universidades_CGI/proyecto
+$ cd $HOME/Universidades_CGI/proyecto
+$ echo "# Universidades_CGI" >> README.md
+$ git init
+$ git config --global user.name "Jerry Anderson Huaynacho Mango"
+$ git config --global user.email jerryandersonh@gmail.com
+$ git add README.md
+$ git commit -m "first commit"
+$ git branch -M main
+$ git remote add origin https://github.com/JerryAndersonh/Universidades_CGI.git
+$ git push -u origin main
+```
+### Commits
 
-- Empezando el Curso de Java - https://www.youtube.com/playlist?list=PLw8RQJQ8K1yQDqPyDRzt-h8YlBj96OwMP
-- The Java® Language Specification Java SE 11 Edition - https://docs.oracle.com/javase/specs/jls/se11/html/index.html
-- The Java™ Tutorials - https://docs.oracle.com/javase/tutorial/
-- Java Course - http://www.vias.org/javacourse/wrapnt4F38D8_object_oriented_programming.html
+Se creó el archivo .gitignore para no considerar los archivos innecesarios, como *.log y otros archivos temporales generados por el proyecto.
 
-#
+```
+$ vim .gitignore
+commit para crear .gitignore
+$ git add .
+$ git commit -m "Creando .gitignore para archivos temporales"
+$ git push -u origin main
+
+```
+### Código en Perl para la consulta de universidades licenciadas:
+```
+#!/usr/bin/perl
+use strict;
+use warnings;
+use CGI;
+
+my $q = CGI->new;
+print $q->header();
+
+# Ejemplo de consulta sobre el archivo CSV usando expresiones regulares
+my $archivo = 'Data_Universidades_LAB06.csv';
+open my $fh, '<', $archivo or die "No se puede abrir el archivo: $!";
+
+my $nombre = $q->param('nombre');
+while (<$fh>) {
+    if ($_ =~ /$nombre/i) {
+        print "$_\n";
+    }
+}
+close $fh;
+```
+### Estructura del proyecto
+El contenido del proyecto entregado en este laboratorio es el siguiente:
+```
+Universidades_CGI/
+|--- consulta.pl
+|--- index.html
+|--- styles.css
+|--- Dockerfile
+|--- .gitignore
+|--- README.md
+|--- src/
+|--- Data_Universidades_LAB06.csv
+|--- Data_Universidades_LAB06.ods
+|--- Licenciamiento_Institucional.pdf
+|--- Programas_Universidades.pdf
+```
+
+
+
+### PREGUNTA: ¿Qué se aprendió del trabajo colaborativo en GitHub con cuatro integrantes en este proyecto?
+
+En este proyecto, trabajamos de manera colaborativa con un equipo de cuatro integrantes utilizando GitHub como herramienta principal para gestionar el desarrollo y la coordinación del proyecto. A lo largo del proceso, aprendimos varias lecciones importantes sobre trabajo en equipo y control de versiones:
+
+Importancia del control de versiones: GitHub nos permitió gestionar los cambios en el código de manera eficiente. Cada miembro del equipo pudo trabajar de forma independiente en su parte del proyecto y, al final, realizar integraciones sin riesgo de sobrescribir el trabajo de los demás. La creación de ramas (branches) y la posterior fusión (merge) nos permitió trabajar simultáneamente en distintas funcionalidades sin conflictos.
+
+Trabajo en equipo y comunicación: El uso de GitHub facilitó la comunicación y la organización del trabajo entre los integrantes del equipo. Las issues y pull requests fueron esenciales para llevar un seguimiento de las tareas y para realizar revisiones de código antes de integrar las modificaciones al proyecto final. Esto mejoró la calidad del código y permitió que todos los miembros estuvieran al tanto de los avances y problemas.
+
+Resolución de conflictos: En ocasiones surgieron conflictos de código durante la fusión de ramas, lo que nos obligó a colaborar directamente para resolverlos. Este proceso nos ayudó a mejorar nuestras habilidades para manejar problemas técnicos en equipo y encontrar soluciones rápidamente.
+
+Mejora de la organización: Al crear una estructura de carpetas clara y un archivo README.md bien documentado, pudimos mantener el proyecto organizado y accesible para todos. Esto facilitó el onboarding de nuevos miembros y ayudó a que todos supieran cómo ejecutar y contribuir al proyecto.
+
+Gestión de tareas y asignación de responsabilidades: GitHub también nos permitió asignar tareas específicas mediante issues, lo que mejoró la asignación de responsabilidades y la planificación del trabajo. Esto nos permitió cumplir con los plazos establecidos y dividir el proyecto en tareas manejables para cada miembro.
+
+En resumen, el trabajo colaborativo en GitHub nos permitió coordinar eficientemente nuestras tareas y mejorar la calidad del proyecto mediante una mejor organización, comunicación y manejo de versiones. Aprendimos a trabajar de forma más efectiva como equipo y a resolver problemas de manera conjunta, lo que fue esencial para el éxito del proyecto.
+
 
 [license]: https://img.shields.io/github/license/rescobedoq/pw2?label=rescobedoq
 [license-file]: https://github.com/rescobedoq/pw2/blob/main/LICENSE
@@ -445,12 +269,14 @@ Primer repositorio en GitHub
 [java-site]: https://docs.oracle.com/javase/tutorial/
 
 
+<div align="center">
+
 [![Debian][Debian]][debian-site]
 [![Git][Git]][git-site]
 [![GitHub][GitHub]][github-site]
 [![Vim][Vim]][vim-site]
-[![Java][Java]][java-site]
-
 [![License][license]][license-file]
 [![Downloads][downloads]][releases]
 [![Last Commit][last-commit]][releases]
+
+</div>
