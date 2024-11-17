@@ -69,5 +69,26 @@ input[type="submit"]:hover {
   background-color: #555;
   transform: scale(1.05);
 }
+@media (max-width: 768px) {
+  .mytitle {
+    font-size: 1.8rem;
+  }
+
+  .content {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mytitle {
+    font-size: 1.5rem;
+  }
+
+  input[type="submit"] {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
 
 
