@@ -43,13 +43,23 @@ for (my $i = 0; $i <= $#columnas; $i++) {
     }
 }
 $index++;
+open(my $in, "<:encoding(UTF-8)", "./data.csv") or die "<h2>Error al abrir el archivo</h2>";
 
-my $csv = Text::CSV->new({ binary => 1, sep_char => ',' });
+print <<BLOCK;
+  <table>
+    <tr>
+      <th>NOMBRE</th>
+      <th>TIPO GESTIÓN</th>
+      <th>ESTADO LICENCIAMIENTO</th>
+      <th>PERIODO LICENCIAMIENTO</th>
+      <th>DEPARTAMENTO / PROVINCIA / DISTRITO</th>
+    </tr>
+BLOCK
 
-while (my @fila = $csv->getline($fh)){
-    if ($fila[$index]=~/\Q$termino\E/i){
-        print "<tr>";
-        print "<td>$_</td>" for @fila;
-        print "</tr>";
-    }
+sub normalize_text {
+    my $text = shift;
+    utf8::decode($text);
+    $text = NFD($text);
+    $text =~ s/\pM//g;
+    return NFC($text);
 }
