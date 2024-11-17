@@ -33,4 +33,26 @@ body {
   width: 100%;
   max-width: 600px;
 }
+.myinput {
+  margin: 15px 0;
+}
+
+select, input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border: 1px solid #666;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  font-size: 1rem;
+}
+
+select:focus, input[type="text"]:focus {
+  outline: none;
+  background-color: #f0f0f0;
+  border-color: #333;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
 
