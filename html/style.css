@@ -25,4 +25,12 @@ body {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
   letter-spacing: 1px;
 }
+.content {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+  width: 100%;
+  max-width: 600px;
+}
 
