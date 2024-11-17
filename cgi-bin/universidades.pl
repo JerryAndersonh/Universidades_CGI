@@ -26,22 +26,25 @@ print <<HTML;
       </div>
       <div class="content answer">
 HTML
+ 
+my $eleccion = $cgi->param('eleccion');
+my $input = $cgi->param('input') || "";
+$input = normalize_text($input);
 
-my $data = 'DataUNI.csv';
-open(my $fh, '<', $data) or die "No se pudo abrir el archivo '$data' $!";
+print "<p><strong>Palabra clave ingresada: $input</strong></p>\n";
 
-my $csv = Text::CSV->new({ binary => 1, sep_char => ',' });
-my @columnas = @{ $csv->getline($fh) };
-
-my $columna = $cgi->Param('columna');
-my $termino = $cgi->Param('termino');
+my @columnas = ('name', 'management_type', 'status', 'start_date', 'end_date', 
+               'period', 'department', 'province', 'district');
 my $index;
-
-for (my $i = 0; $i < @columnas; $i++){
-    if($columnas[$i] eq $columna){
+for (my $i = 0; $i <= $#columnas; $i++) {
+    if ($columnas[$i] eq $eleccion) {
         $index = $i;
+        last;
     }
 }
+$index++;
+
+my $csv = Text::CSV->new({ binary => 1, sep_char => ',' });
 
 while (my @fila = $csv->getline($fh)){
     if ($fila[$index]=~/\Q$termino\E/i){
