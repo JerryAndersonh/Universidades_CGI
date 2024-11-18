@@ -189,41 +189,119 @@ $ git push -u origin main
 ```
 ### Código en Perl para la consulta de universidades licenciadas:
 ```
-#!/usr/bin/perl
-use strict;
+#!/usr/bin/perl -w
 use warnings;
+use strict;
 use CGI;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+use Unicode::Normalize;
 
-my $q = CGI->new;
-print $q->header();
+my $cgi = CGI->new;
+$cgi->charset('UTF-8');
+print $cgi->header(-type => 'text/html', -charset => 'UTF-8');
 
-# Ejemplo de consulta sobre el archivo CSV usando expresiones regulares
-my $archivo = 'Data_Universidades_LAB06.csv';
-open my $fh, '<', $archivo or die "No se puede abrir el archivo: $!";
+print <<HTML;
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Página de Búsqueda - Universidades licenciadas</title>
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <div class="mytitle">
+        <b>Resultados de la búsqueda</b>
+      </div>
+      <div class="content answer">
+HTML
+ 
+my $eleccion = $cgi->param('eleccion');
+my $input = $cgi->param('input') || "";
+$input = normalize_text($input);
 
-my $nombre = $q->param('nombre');
-while (<$fh>) {
-    if ($_ =~ /$nombre/i) {
-        print "$_\n";
+print "<p><strong>Palabra clave ingresada: $input</strong></p>\n";
+
+my @columnas = ('name', 'management_type', 'status', 'start_date', 'end_date', 
+               'period', 'department', 'province', 'district');
+my $index;
+for (my $i = 0; $i <= $#columnas; $i++) {
+    if ($columnas[$i] eq $eleccion) {
+        $index = $i;
+        last;
     }
 }
-close $fh;
+$index++;
+open(my $in, "<:encoding(UTF-8)", "./data.csv") or die "<h2>Error al abrir el archivo</h2>";
+
+print <<BLOCK;
+  <table>
+    <tr>
+      <th>NOMBRE</th>
+      <th>TIPO GESTIÓN</th>
+      <th>ESTADO LICENCIAMIENTO</th>
+      <th>PERIODO LICENCIAMIENTO</th>
+      <th>DEPARTAMENTO / PROVINCIA / DISTRITO</th>
+    </tr>
+BLOCK
+my $aux = 0;
+while (my $linea = <$in>) {
+    my @fila = split(/,/, $linea);
+    my $valor = normalize_text($fila[$index]);
+
+    if (defined $valor && $valor =~ /\Q$input\E/i) {
+        print 
+        "<tr>
+        <td>$fila[1]</td>
+        <td>$fila[2]</td>
+        <td>$fila[3]</td>
+        <td>$fila[4] - $fila[5]</td>
+        <td>$fila[7] / $fila[8] / $fila[9]</td>
+        </tr>\n";
+        $aux = 1;
+    }
+}
+if (!$aux) {
+    print "<p><strong>No se encontraron resultados para '$input'.</strong></p>\n";
+}
+
+print <<HTML;
+        </table>
+      </div>
+      <div class="back">
+        <a href="index.html">Volver</a>
+      </div>
+    </div>
+  </body>
+</html>
+HTML
+
+sub normalize_text {
+    my $text = shift;
+    utf8::decode($text);
+    $text = NFD($text);
+    $text =~ s/\pM//g;
+    return NFC($text);
+}
 ```
 ### Estructura del proyecto
 El contenido del proyecto entregado en este laboratorio es el siguiente:
 ```
 Universidades_CGI/
-|--- consulta.pl
-|--- index.html
-|--- styles.css
+|--- cgi-bin
+    |---consult.pl
+    |---data.csv
+|--- html
+    |---fondo.jpg
+    |---index.html
+    |---style.css
+|--- informe
+    |---informe.tex
+    |---informeLab06.pdf
 |--- Dockerfile
-|--- .gitignore
 |--- README.md
-|--- src/
-|--- Data_Universidades_LAB06.csv
-|--- Data_Universidades_LAB06.ods
-|--- Licenciamiento_Institucional.pdf
-|--- Programas_Universidades.pdf
 ```
 
 
