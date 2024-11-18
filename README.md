@@ -303,7 +303,15 @@ Universidades_CGI/
 |--- Dockerfile
 |--- README.md
 ```
-
+### Crear imagen y contenedor para el despliegue 
+#### Imagen: image-grupo4
+```
+docker build -t image-grupo4 .
+```
+#### Contenedor: 
+```
+docker run -d -p 8084:80 --name contenedor-grupo4 image-grupo4
+```
 
 
 ### PREGUNTA: ¿Qué se aprendió del trabajo colaborativo en GitHub con cuatro integrantes en este proyecto?
@@ -346,8 +354,18 @@ En resumen, el trabajo colaborativo en GitHub nos permitió coordinar eficientem
 [Java]: https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white
 [java-site]: https://docs.oracle.com/javase/tutorial/
 
-
 <div align="center">
+# Imágenes en README.md
+
+## Primera imagen
+![Frontend](informe/img1.jpg)
+
+## Segunda imagen
+![Busqueda por Departamento](informe/img2.jpg)
+
+## Tercera imagen
+![Resultado](informe/img3.jpg)
+
 
 [![Debian][Debian]][debian-site]
 [![Git][Git]][git-site]
