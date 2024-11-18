@@ -55,6 +55,37 @@ print <<BLOCK;
       <th>DEPARTAMENTO / PROVINCIA / DISTRITO</th>
     </tr>
 BLOCK
+my $aux = 0;
+while (my $linea = <$in>) {
+    my @fila = split(/,/, $linea);
+    my $valor = normalize_text($fila[$index]);
+
+    if (defined $valor && $valor =~ /\Q$input\E/i) {
+        print 
+        "<tr>
+        <td>$fila[1]</td>
+        <td>$fila[2]</td>
+        <td>$fila[3]</td>
+        <td>$fila[4] - $fila[5]</td>
+        <td>$fila[7] / $fila[8] / $fila[9]</td>
+        </tr>\n";
+        $aux = 1;
+    }
+}
+if (!$aux) {
+    print "<p><strong>No se encontraron resultados para '$input'.</strong></p>\n";
+}
+
+print <<HTML;
+        </table>
+      </div>
+      <div class="back">
+        <a href="index.html">Volver</a>
+      </div>
+    </div>
+  </body>
+</html>
+HTML
 
 sub normalize_text {
     my $text = shift;
