@@ -3,6 +3,8 @@
 \usepackage[top=3cm, bottom=3cm, outer=3cm, inner=3cm]{geometry}
 \usepackage{multicol}
 \usepackage{graphicx}
+\usepackage{caption} % Opcional, para personalizar las leyendas
+\usepackage{subcaption} % Opcional, para organizar imágenes en subfiguras
 \usepackage{url}
 %\usepackage{cite}
 \usepackage{hyperref}
@@ -211,7 +213,8 @@
         \item Procesamiento de datos mediante expresiones regulares en Perl.
         \item Desarrollo de interfaces web interactivas con CGI, HTML y CSS.
     \end{itemize}
-    
+
+
 	\section{URL de Repositorio Github}
 	\begin{itemize}
 		\item URL del Repositorio GitHub para clonar o recuperar.
@@ -282,25 +285,102 @@
     \end{lstlisting}
     
     \begin{lstlisting}[language=perl,caption={Código en Perl para consulta de universidades licenciadas}][H]
-    #!/usr/bin/perl
-    use strict;
+    #!/usr/bin/perl -w
     use warnings;
+    use strict;
     use CGI;
+    use utf8;
+    use open ':std', ':encoding(UTF-8)';
+    use Unicode::Normalize;
     
-    my $q = CGI->new;
-    print $q->header();
-    # Ejemplo de consulta sobre el archivo CSV usando expresiones regulares
+    my $cgi = CGI->new;
+    $cgi->charset('UTF-8');
+    print $cgi->header(-type => 'text/html', -charset => 'UTF-8');
     
-    my $archivo = 'Data_Universidades_LAB06.csv';
-    open my $fh, '<', $archivo or die "No se puede abrir el archivo: $!";
+    print <<HTML;
+    <!DOCTYPE html>
+    <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Página de Búsqueda - Universidades licenciadas</title>
+      </head>
+      <body>
+        <div class="site-wrapper">
+          <div class="mytitle">
+            <b>Resultados de la búsqueda</b>
+          </div>
+          <div class="content answer">
+    HTML
+     
+    my $eleccion = $cgi->param('eleccion');
+    my $input = $cgi->param('input') || "";
+    $input = normalize_text($input);
     
-    my $nombre = $q->param('nombre');
-    while (<$fh>) {
-        if ($_ =~ /$nombre/i) {
-            print "$_\n";
+    print "<p><strong>Palabra clave ingresada: $input</strong></p>\n";
+    
+    my @columnas = ('name', 'management_type', 'status', 'start_date', 'end_date', 
+                   'period', 'department', 'province', 'district');
+    my $index;
+    for (my $i = 0; $i <= $#columnas; $i++) {
+        if ($columnas[$i] eq $eleccion) {
+            $index = $i;
+            last;
         }
     }
-    close $fh;
+    $index++;
+    open(my $in, "<:encoding(UTF-8)", "./data.csv") or die "<h2>Error al abrir el archivo</h2>";
+    
+    print <<BLOCK;
+      <table>
+        <tr>
+          <th>NOMBRE</th>
+          <th>TIPO GESTIÓN</th>
+          <th>ESTADO LICENCIAMIENTO</th>
+          <th>PERIODO LICENCIAMIENTO</th>
+          <th>DEPARTAMENTO / PROVINCIA / DISTRITO</th>
+        </tr>
+    BLOCK
+    my $aux = 0;
+    while (my $linea = <$in>) {
+        my @fila = split(/,/, $linea);
+        my $valor = normalize_text($fila[$index]);
+    
+        if (defined $valor && $valor =~ /\Q$input\E/i) {
+            print 
+            "<tr>
+            <td>$fila[1]</td>
+            <td>$fila[2]</td>
+            <td>$fila[3]</td>
+            <td>$fila[4] - $fila[5]</td>
+            <td>$fila[7] / $fila[8] / $fila[9]</td>
+            </tr>\n";
+            $aux = 1;
+        }
+    }
+    if (!$aux) {
+        print "<p><strong>No se encontraron resultados para '$input'.</strong></p>\n";
+    }
+    
+    print <<HTML;
+            </table>
+          </div>
+          <div class="back">
+            <a href="index.html">Volver</a>
+          </div>
+        </div>
+      </body>
+    </html>
+    HTML
+    
+    sub normalize_text {
+        my $text = shift;
+        utf8::decode($text);
+        $text = NFD($text);
+        $text =~ s/\pM//g;
+        return NFC($text);
+    }
     \end{lstlisting}
     
     \begin{lstlisting}[language=bash,caption={Commit: Implementando backend con Perl para procesar consultas}][H]
@@ -316,17 +396,18 @@
     
     \begin{lstlisting}[style=ascii-tree]
     Universidades_CGI/
-    |--- consulta.pl
-    |--- index.html
-    |--- styles.css
+    |--- cgi-bin
+        |---consult.pl
+        |---data.csv
+    |--- html
+        |---fondo.jpg
+        |---index.html
+        |---style.css
+    |--- informe
+        |---informe.tex
+        |---informeLab06.pdf
     |--- Dockerfile
-    |--- .gitignore
     |--- README.md
-    |--- src
-    |--- Data_Universidades_LAB06.csv
-    |--- Data_Universidades_LAB06.ods
-    |--- Licenciamiento_Institucional.pdf
-    |--- Programas_Univeridades.pdf
     \end{lstlisting}
     
     \subsection{Despliegue con Docker}
@@ -336,19 +417,52 @@
     \end{itemize}
     
     \begin{lstlisting}[language=bash,caption={Dockerfile para el despliegue}][H]
-    FROM perl:latest
+    FROM bitnami/minideb
     
-    # Instalando dependencias
-    RUN cpan install CGI
+    ENV DEBIAN_FRONTEND="noninteractive"
     
-    # Copiando archivos al contenedor
-    COPY . /var/www/html
+    # Instalar paquetes necesarios y configurar el locale
+    RUN apt-get update && \
+        apt-get install -y apache2 perl libcgi-pm-perl libtext-csv-perl locales && \
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/*
     
-    # Expone el puerto 80
+    # Generar y establecer el locale
+    RUN locale-gen en_US.UTF-8
+    ENV LANG en_US.UTF-8
+    ENV LC_ALL en_US.UTF-8
+    
+    # Habilitar módulo cgid de Apache
+    RUN a2enmod cgid
+    
+    # Crear directorios necesarios
+    RUN mkdir -p /usr/lib/cgi-bin /var/www/html
+    
+    # Copiar los archivos CGI y HTML al contenedor
+    COPY ./cgi-bin/ /usr/lib/cgi-bin/
+    COPY ./html/ /var/www/html/
+    
+    # Asegurarse de que data.csv esté copiado en el contenedor
+    COPY ./cgi-bin/data.csv /usr/lib/cgi-bin/data.csv
+    
+    # Dar permisos a los archivos
+    RUN chmod +x /usr/lib/cgi-bin/*.pl && \
+        chmod -R 755 /usr/lib/cgi-bin/* && \
+        chmod 755 /var/www/html/*.html && \
+        chmod 755 /var/www/html/style.css
+    
+    RUN chmod -R 755 /var/www/html
+    
+    # Exponer el puerto 80
     EXPOSE 80
     
-    # Ejecuta el servidor CGI
-    CMD ["perl", "/var/www/html/consulta.pl"]
+    # Ejecutar Apache en primer plano
+    CMD ["apachectl", "-D", "FOREGROUND"]
+    \end{lstlisting}
+    
+    \begin{lstlisting}[language=bash,caption={Commit: Comandos para despliegue}][H]
+    $ docker build -t image-grupo4 .
+    $ docker run -d -p 8084:80 --name contenedor-grupo4 image-grupo4
     \end{lstlisting}
     
 
@@ -369,7 +483,32 @@
     \end{itemize}
     
     En resumen, el trabajo colaborativo en GitHub nos permitió coordinar eficientemente nuestras tareas y mejorar la calidad del proyecto mediante una mejor organización, comunicación y manejo de versiones. Aprendimos a trabajar de forma más efectiva como equipo y a resolver problemas de manera conjunta, lo que fue esencial para el éxito del proyecto.
-
+    
+    \section{Capturas de pantalla}
+    % Primera imagen
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img1.jpg}
+        \caption{SitioWeb01.}
+        \label{fig:img1}
+    \end{figure}
+    
+    % Segunda imagen
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.4\textwidth]{img2.jpg}
+        \caption{SitioWeb02.}
+        \label{fig:img2}
+    \end{figure}
+    
+    % Tercera imagen
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img3.jpg}
+        \caption{Busqueda por Departamento.}
+        \label{fig:img3}
+    \end{figure}
+    
     \newpage
 	\section{\textcolor{cyan}{Rúbricas de calificaciones}}
 	
@@ -384,7 +523,7 @@
 			\hline
 			\textbf{1. GitHub} & Hay enlace URL activo del directorio para el  laboratorio hacia su repositorio GitHub con código fuente terminado y fácil de revisar. &2 &X &2 & \\ 
 			\hline
-			\textbf{2. Commits} &  Hay capturas de pantalla de los commits más importantes con sus explicaciones detalladas. (El profesor puede preguntar para refrendar calificación). &4 & & & \\ 
+			\textbf{2. Commits} &  Hay capturas de pantalla de los commits más importantes con sus explicaciones detalladas. (El profesor puede preguntar para refrendar calificación). &4 &X &4 & \\ 
 			\hline 
 			\textbf{3. Código fuente} &  Hay porciones de código fuente importantes con numeración y explicaciones detalladas de sus funciones. &2 &X &2 & \\ 
 			\hline 
@@ -396,9 +535,9 @@
 			\hline 
 			\textbf{7. Ortografía} & El documento no muestra errores ortográficos. &2 &X &2 & \\ 
 			\hline 
-			\textbf{8. Madurez} & El Informe muestra de manera general una evolución de la madurez del código fuente,  explicaciones puntuales pero precisas y un acabado impecable.   (El profesor puede preguntar para refrendar calificación).  &4 & & & \\ 
+			\textbf{8. Madurez} & El Informe muestra de manera general una evolución de la madurez del código fuente,  explicaciones puntuales pero precisas y un acabado impecable.   (El profesor puede preguntar para refrendar calificación).  &4 &X &2 &\\
 			\hline
-			\multicolumn{2}{|c|}{\textbf{Total}} &20 & &12 & \\ 
+			\multicolumn{2}{|c|}{\textbf{Total}} &20 & &18 & \\ 
 			\hline
 		\end{tabular}
 		%\end{center}
@@ -417,7 +556,7 @@
 			\hline
 			\textbf{1. GitHub} & Hay enlace URL activo del directorio para el  laboratorio hacia su repositorio GitHub con código fuente terminado y fácil de revisar. &2 &X &2 & \\ 
 			\hline
-			\textbf{2. Commits} &  Hay capturas de pantalla de los commits más importantes con sus explicaciones detalladas. (El profesor puede preguntar para refrendar calificación). &4 & & & \\ 
+			\textbf{2. Commits} &  Hay capturas de pantalla de los commits más importantes con sus explicaciones detalladas. (El profesor puede preguntar para refrendar calificación). &4 &X &4 & \\ 
 			\hline 
 			\textbf{3. Código fuente} &  Hay porciones de código fuente importantes con numeración y explicaciones detalladas de sus funciones. &2 &X &2 & \\ 
 			\hline 
@@ -429,9 +568,9 @@
 			\hline 
 			\textbf{7. Ortografía} & El documento no muestra errores ortográficos. &2 &X &2 & \\ 
 			\hline 
-			\textbf{8. Madurez} & El Informe muestra de manera general una evolución de la madurez del código fuente,  explicaciones puntuales pero precisas y un acabado impecable.   (El profesor puede preguntar para refrendar calificación).  &4 & & & \\ 
+			\textbf{8. Madurez} & El Informe muestra de manera general una evolución de la madurez del código fuente,  explicaciones puntuales pero precisas y un acabado impecable.   (El profesor puede preguntar para refrendar calificación).  &4 &X &2 &\\
 			\hline
-			\multicolumn{2}{|c|}{\textbf{Total}} &20 & &12 & \\ 
+			\multicolumn{2}{|c|}{\textbf{Total}} &20 & &18 & \\ 
 			\hline
 		\end{tabular}
 		%\end{center}
@@ -450,7 +589,7 @@
 			\hline
 			\textbf{1. GitHub} & Hay enlace URL activo del directorio para el  laboratorio hacia su repositorio GitHub con código fuente terminado y fácil de revisar. &2 &X &2 & \\ 
 			\hline
-			\textbf{2. Commits} &  Hay capturas de pantalla de los commits más importantes con sus explicaciones detalladas. (El profesor puede preguntar para refrendar calificación). &4 & & & \\ 
+			\textbf{2. Commits} &  Hay capturas de pantalla de los commits más importantes con sus explicaciones detalladas. (El profesor puede preguntar para refrendar calificación). &4 &X &4 & \\ 
 			\hline 
 			\textbf{3. Código fuente} &  Hay porciones de código fuente importantes con numeración y explicaciones detalladas de sus funciones. &2 &X &2 & \\ 
 			\hline 
@@ -462,9 +601,9 @@
 			\hline 
 			\textbf{7. Ortografía} & El documento no muestra errores ortográficos. &2 &X &2 & \\ 
 			\hline 
-			\textbf{8. Madurez} & El Informe muestra de manera general una evolución de la madurez del código fuente,  explicaciones puntuales pero precisas y un acabado impecable.   (El profesor puede preguntar para refrendar calificación).  &4 & & & \\ 
+			\textbf{8. Madurez} & El Informe muestra de manera general una evolución de la madurez del código fuente,  explicaciones puntuales pero precisas y un acabado impecable.   (El profesor puede preguntar para refrendar calificación).  &4 &X &2 &\\
 			\hline
-			\multicolumn{2}{|c|}{\textbf{Total}} &20 & &12 & \\ 
+			\multicolumn{2}{|c|}{\textbf{Total}} &20 & &18 & \\ 
 			\hline
 		\end{tabular}
 		%\end{center}
@@ -483,7 +622,7 @@
 			\hline
 			\textbf{1. GitHub} & Hay enlace URL activo del directorio para el  laboratorio hacia su repositorio GitHub con código fuente terminado y fácil de revisar. &2 &X &2 & \\ 
 			\hline
-			\textbf{2. Commits} &  Hay capturas de pantalla de los commits más importantes con sus explicaciones detalladas. (El profesor puede preguntar para refrendar calificación). &4 & & & \\ 
+			\textbf{2. Commits} &  Hay capturas de pantalla de los commits más importantes con sus explicaciones detalladas. (El profesor puede preguntar para refrendar calificación). &4 &X &4 & \\ 
 			\hline 
 			\textbf{3. Código fuente} &  Hay porciones de código fuente importantes con numeración y explicaciones detalladas de sus funciones. &2 &X &2 & \\ 
 			\hline 
@@ -495,9 +634,9 @@
 			\hline 
 			\textbf{7. Ortografía} & El documento no muestra errores ortográficos. &2 &X &2 & \\ 
 			\hline 
-			\textbf{8. Madurez} & El Informe muestra de manera general una evolución de la madurez del código fuente,  explicaciones puntuales pero precisas y un acabado impecable.   (El profesor puede preguntar para refrendar calificación).  &4 & & & \\ 
+			\textbf{8. Madurez} & El Informe muestra de manera general una evolución de la madurez del código fuente,  explicaciones puntuales pero precisas y un acabado impecable.   (El profesor puede preguntar para refrendar calificación).  &4 &X &2 &\\
 			\hline
-			\multicolumn{2}{|c|}{\textbf{Total}} &20 & &12 & \\ 
+			\multicolumn{2}{|c|}{\textbf{Total}} &20 & &18 & \\ 
 			\hline
 		\end{tabular}
 		%\end{center}
