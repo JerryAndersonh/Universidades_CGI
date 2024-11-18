@@ -30,12 +30,12 @@ body {
 }
 
 .content {
-  background: rgba(255, 255, 255, 1); /* Fondo blanco sólido */
-  padding: 30px;
+  background: rgba(255, 255, 255, 1); 
+  padding: 15px; 
   border-radius: 8px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
   width: 100%;
-  max-width: 600px;
+  max-width: 450px; 
 }
 
 .myinput {
@@ -51,105 +51,7 @@ select, input[type="text"] {
   background-color: #fff; 
   color: #333; 
   font-size: 1rem;
-}
-
-select:focus, input[type="text"]:focus {
-  outline: none;
-  background-color: #f0f0f0;
-  border-color: #333; 
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-input[type="submit"] {
-  background-color: #333; 
-  color: #fff;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 4px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-input[type="submit"]:hover {
-  background-color: #555; 
-  transform: scale(1.05);
-}
-
-@media (max-width: 768px) {
-  .mytitle {
-    font-size: 1.8rem;
-  }
-
-  .content {
-    width: 90%;
-    padding: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .mytitle {
-    font-size: 1.5rem;
-  }
-
-  input[type="submit"] {
-    font-size: 1rem;
-    padding: 10px 20px;
-  }
-}
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background: url('fondo.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #333; 
-  line-height: 1.6;
-}
-
-.site-wrapper {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-  backdrop-filter: blur(5px);
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
-}
-
-.mytitle {
-  font-size: 2.2rem;
-  color: #fff;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-  letter-spacing: 1px;
-}
-
-.content {
-  background: rgba(255, 255, 255, 1); /* Fondo blanco sólido */
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
-  width: 100%;
-  max-width: 600px;
-}
-
-.myinput {
-  margin: 15px 0;
-}
-
-select, input[type="text"] {
-  width: 100%;
-  padding: 12px;
-  margin-top: 8px;
-  border: 1px solid #666; 
-  border-radius: 4px;
-  background-color: #fff; 
-  color: #333; 
-  font-size: 1rem;
+  box-sizing: border-box; /* Hace que padding no aumente el tamaño total */
 }
 
 select:focus, input[type="text"]:focus {
