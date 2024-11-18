@@ -1,6 +1,6 @@
-#!/usr/bin/perl
-use strict;
+#!/usr/bin/perl -w
 use warnings;
+use strict;
 use CGI;
 use utf8;
 use open ':std', ':encoding(UTF-8)';

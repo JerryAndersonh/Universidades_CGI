@@ -12,9 +12,9 @@
         <b>Búsqueda de universidades licenciadas</b>
       </div>
       <form class="content" action="cgi-bin/consult.pl" method="get" accept-charset="UTF-8">
-        <label for="kind">Elija opción e ingrese una frase:</label>
+        <label for="eleccion">Elija opción e ingrese una frase:</label>
         <div class="myinput">
-          <select name="kind" required>
+          <select name="eleccion" required>
             <option value="name">Nombre</option>
             <option value="management_type">Tipo de Gestión</option>
             <option value="status">Estado de Licenciamiento</option>
@@ -23,7 +23,7 @@
             <option value="province">Provincia</option>
             <option value="district">Distrito</option>
           </select>
-          <input type="text" name="keyword" required>
+          <input type="text" name="input" required>
         </div>
         <input type="submit" value="Buscar">
       </form>
